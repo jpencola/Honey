@@ -1,0 +1,24 @@
+# OS Specific #
+###############
+.DS_Store?
+Thumbs.db
+
+# Language Specific #
+#####################
+*.pyc
+
+# Project Specific #
+####################
+.project
+.pydevproject
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+*.db
+
+# Settings #
+############
+/bumblebee/settings/local.py
