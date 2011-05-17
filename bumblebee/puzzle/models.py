@@ -36,7 +36,9 @@ class Puzzle(models.Model):
     guid = models.CharField(max_length=64, unique=True, db_index=True)
     name = models.CharField(max_length=32, db_index=True)
     difficulty = models.ForeignKey('Difficulty')
-    #image = models.ImageField()
+    width = models.IntegerField(db_index=True)
+    height = models.IntegerField(db_index=True)
+    image = models.ImageField(upload_to='images', width_field='width', height_field='height')
     
     def __unicode__(self):
         return self.name

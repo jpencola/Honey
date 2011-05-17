@@ -26,6 +26,9 @@ admin.site.register(Difficulty, DifficultyAdmin)
 
 
 class PuzzleAdmin(admin.ModelAdmin):
-    fields = ('guid', 'name', 'difficulty')
+    fields = ('guid', 
+              'name', 
+              'difficulty',
+              'image')
     
 admin.site.register(Puzzle, PuzzleAdmin)
