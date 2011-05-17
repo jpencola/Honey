@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+        <head>
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+                <title>{% block title %}{% endblock %}</title>
+                <meta name="description" content="Puzzle">
+                <meta name="author" content="John Pencola">
+                <link rel="stylesheet" href="{{ STATIC_URL }}css/global.css">
+                {% block head_include %}{% endblock head_include %}
+        </head>
+
+        <body>
+                <div id="content">{% block content %}{% endblock content %}</div>
+                <div id="footer">&copy; John Pencola aka Deft! 2011</div>
+                {% block endbody_include %}{% endblock endbody_include %}
+        </body>
+</html>
