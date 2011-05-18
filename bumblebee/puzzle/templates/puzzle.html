@@ -9,4 +9,113 @@
 
 {% block content %}
         <h1>Your Puzzle Game!</h1>
+		
+		<canvas id="buffer-canvas" width="400" height="400"></canvas>
+		<canvas id="game-canvas" width="400" height="400"></canvas>	
+		
+		<script type="text/javascript">
+		
+			(function(){
+				var game_fps = 30;
+				var osb_canvas = document.getElementById('buffer-canvas');
+				var game_canvas = document.getElementById('game-canvas');
+				var osb_ctx = osb_canvas.getContext('2d');
+				var game_ctx = game_canvas.getContext('2d');
+				var game_w = game_canvas.width;
+				var game_h = game_canvas.height;
+				
+				//	game parameters
+				var row_count = 4;
+				var col_count = 4;
+				var pieces = [];
+				var piece_count = row_count * col_count;
+				var row_offset = 0;
+				var row_index = 0;
+				var col_index = 0;
+				
+				//	create puzzle piece definitions
+				for (var n=0; n<piece_count; n++){
+					var w = game_w / col_count;
+					var h = game_h / row_count;
+					var isFirstPieceInRow = !!(n % col_count == 0);
+					
+					if (isFirstPieceInRow){
+						row_offset = row_index * h;
+						col_index = 0;
+						row_index++;
+					} else {
+						col_index++;
+					}
+					
+					pieces.push({
+						x: col_index * w,
+						y: row_offset,
+						width: w,
+						height: h
+					});
+				}
+				
+				console.log(pieces);
+				
+				//	load the source image 
+				var source_image = new Image();
+				source_image.width = game_w;
+				source_image.height = game_h;
+				source_image.onload = function() {
+
+					osb_ctx.save();
+					game_ctx.save();
+					
+					osb_ctx.drawImage(this, 0, 0);
+					
+					// clip a portion of the canvas for each piece
+					for (var n=0, count=pieces.length; n<count; n++){
+						var piece = pieces[n];
+						var clip_rect = {
+							x: piece.x,
+							y: piece.y,
+							w: piece.width,
+							h: piece.height
+						};
+						
+						var dest_rect = {
+							x: piece.x,
+							y: piece.y,
+							w: piece.width,
+							h: piece.height
+						};
+						
+						clone_image_rect(this, clip_rect, dest_rect, game_ctx);
+					}
+					//osb_ctx.restore();
+					//game_ctx.restore();
+				}
+				
+				function clone_image_rect(image, source_rect, dest_rect, dest_ctx){
+					var sx = source_rect.x;
+					var sy = source_rect.y;
+					var sw = source_rect.w;
+					var sh = source_rect.h;
+					
+					var dx = dest_rect.x;
+					var dy = dest_rect.y;
+					var dw = dest_rect.w;
+					var dh = dest_rect.h;
+
+					dest_ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
+					/*
+					ctx.save();
+					ctx.beginPath();
+					ctx.moveTo(nx, ny);
+					ctx.rect(nx, ny, size[0], size[1]);
+					ctx.clip();
+					*/
+				}
+				
+				// load the puzzle image
+				source_image.src = '{{ STATIC_URL }}images/demos/matthew.jpg';
+			})()
+			
+		</script>
+		
 {% endblock content %}
