@@ -25,19 +25,21 @@
 				var game_h = game_canvas.height;
 				
 				//	game parameters
-				var row_count = 4;
-				var col_count = 4;
+				var row_count = 2;
+				var col_count = 2;
 				var pieces = [];
 				var piece_count = row_count * col_count;
 				var row_offset = 0;
 				var row_index = 0;
 				var col_index = 0;
-				
+				var random_empty_index = Math.floor(Math.random() * ((row_count * col_count - 1) - 0 + 1)) + 0;
+
 				//	create puzzle piece definitions
 				for (var n=0; n<piece_count; n++){
 					var w = game_w / col_count;
 					var h = game_h / row_count;
 					var isFirstPieceInRow = !!(n % col_count == 0);
+					var isRandomEmptyPiece = !!(n == random_empty_index);
 					
 					if (isFirstPieceInRow){
 						row_offset = row_index * h;
@@ -51,11 +53,10 @@
 						x: col_index * w,
 						y: row_offset,
 						width: w,
-						height: h
+						height: h,
+						empty: (isRandomEmptyPiece) ? true:false
 					});
 				}
-				
-				console.log(pieces);
 				
 				//	load the source image 
 				var source_image = new Image();
@@ -85,10 +86,8 @@
 							h: piece.height
 						};
 						
-						clone_image_rect(this, clip_rect, dest_rect, game_ctx);
+						if (!piece.empty) clone_image_rect(this, clip_rect, dest_rect, game_ctx);
 					}
-					//osb_ctx.restore();
-					//game_ctx.restore();
 				}
 				
 				function clone_image_rect(image, source_rect, dest_rect, dest_ctx){
