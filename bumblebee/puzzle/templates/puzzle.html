@@ -25,8 +25,8 @@
 				var game_h = game_canvas.height;
 				
 				//	game parameters
-				var row_count = 3;
-				var col_count = 3;
+				var row_count = 4;
+				var col_count = 4;
 				var pieces = [];
 				var cells = [];
 				var piece_count = row_count * col_count;
@@ -135,8 +135,19 @@
 				};
 				
 				function handle_cell_click(event){
-					console.log(get_event_coords(event, game_canvas));
-				}
+					var click_coords = get_event_coords(event, game_canvas);
+					var cell_index = get_cell_index(click_coords);
+				};
+				
+				//	return the cell index that contains the given coordinates in the game space
+				function get_cell_index(coords){
+					var col_width = pieces[0].width;
+					var col_index = Math.floor(coords[0] / col_width);
+					var row_height = pieces[0].height;
+					var row_index = Math.floor(coords[1] / row_height);
+					
+					return (row_index*col_count) + (col_index*1);
+				};
 				
 				// shuffle a list in-place
 				function shuffle(list) {
@@ -153,8 +164,7 @@
 				
 				//	gets the relative mouse coordinates of the event
 				function get_event_coords(event, canvas){
-					var x = new Number();
-					var y = new Number();
+					var x, y;
 					
 					if (event.x != undefined && event.y != undefined){
 					  x = event.x;
