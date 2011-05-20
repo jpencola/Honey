@@ -28,18 +28,21 @@
 				var row_count = 4;
 				var col_count = 4;
 				var pieces = [];
+				var shuffled_pieces = [];
+				var moveable_pieces = [];
 				var cells = [];
 				var piece_count = row_count * col_count;
 				var row_offset = 0;
 				var row_index = 0;
 				var col_index = 0;
-				var random_empty_index = Math.floor(Math.random() * ((row_count * col_count - 1) - 0 + 1)) + 0;
+				//var random_empty_index = Math.floor(Math.random() * ((row_count * col_count - 1) - 0 + 1)) + 0;
 
 				//	listen for clicks on the game canvas
 				game_canvas.addEventListener('mousedown', handle_cell_click, false);
 	
-				//	create mapped puzzle cell and piece definitions
-				for (var n=0; n<piece_count; n++){
+				//	store all the pieces initially
+				//	keep track of thier original positional indexes 
+				for (var n=0; n < piece_count; n++){
 					var w = game_w / col_count;
 					var h = game_h / row_count;
 					var isFirstPieceInRow = !!(n % col_count == 0);
@@ -51,26 +54,45 @@
 					} else {
 						col_index++;
 					}
-					
-					cells.push({
-						x: col_index * w,
-						y: row_offset,
-						width: w,
-						height: h,
-						pos: n
-					});
-					
+				
 					pieces.push({
 						x: col_index * w,
 						y: row_offset,
 						width: w,
 						height: h,
-						pos: n
+						moveable: false
 					});
 				}
 				
-				//	randomly shuffle the puzzle piece list
+				//	shuffle all the pieces
 				shuffle(pieces);
+
+				//	create entire cell data structure
+				//	and create entire piece data structure 
+				for (var n=0, accum=0; n < row_count; n++){
+					var w = game_w / col_count;
+					var h = game_h / row_count;
+					var p_row = [];
+					var c_row = [];
+					
+					shuffled_pieces.push(p_row);
+					cells.push(c_row);
+					
+					for (var i=0; i < col_count; i++ ){
+						var piece = pieces[accum];
+						
+						p_row.push(piece);
+						
+						c_row.push({
+							x: i * w,
+							y: n * h,
+							width: w,
+							height: h
+						});
+						
+						accum++;
+					}
+				}
 				
 				//	load the source image 
 				var source_image = new Image();
@@ -84,33 +106,38 @@
 					osb_ctx.drawImage(this, 0, 0);
 					
 					//	place all the piece definition's images into the cells
-					position_pieces_in_cells(pieces);
+					position_pieces_in_cells(shuffled_pieces);
 					
 					//	create and draw the empty slot overtop the pieces
-					var empty_cell = cells[random_empty_index];
+					var empty_cell = cells[row_count-1][col_count-1];
 					draw_empty_cell(empty_cell);
+					
+					//	find candidate pieces that surround the empty cell
+					update_possible_moves(empty_cell); 
 				};
 				
 				function position_pieces_in_cells(pieces){
-					for (var n=0, count=pieces.length; n<count; n++){
-						var cell = cells[n];
-						var piece = pieces[n];
-						
-						var piece_rect = {
-							x: piece.x,
-							y: piece.y,
-							w: piece.width,
-							h: piece.height
-						};
-						
-						var cell_rect = {
-							x: cell.x,
-							y: cell.y,
-							w: cell.width,
-							h: cell.height
-						};
-						
-						clone_image_rect(source_image, piece_rect, cell_rect, game_ctx);
+					for (var i=0, count=pieces.length; i<count; i++){
+						for (var n=0; n<col_count; n++){
+							var cell = cells[i][n];
+							var piece = shuffled_pieces[i][n];
+							
+							var piece_rect = {
+								x: piece.x,
+								y: piece.y,
+								w: piece.width,
+								h: piece.height
+							};
+							
+							var cell_rect = {
+								x: cell.x,
+								y: cell.y,
+								w: cell.width,
+								h: cell.height
+							};
+	
+							clone_image_rect(source_image, piece_rect, cell_rect, game_ctx);
+						}
 					}
 				};
 				
@@ -134,18 +161,99 @@
 					game_ctx.fillRect(cell.x, cell.y, cell.width, cell.height);
 				};
 				
+				function update_possible_moves(empty_cell){
+					moveable_pieces = [];
+					
+					var col_index = get_col_index(empty_cell.x);
+					var row_index = get_row_index(empty_cell.y);
+					
+					//	possible column moves (U/D)
+					if (row_index > 0){
+						var row = row_index - 1;
+						var col = col_index;
+						var piece = shuffled_pieces[row][col];
+						var cell = cells[row][col];
+						moveable_pieces.push(piece);
+						console.log(piece, cell);
+					}
+					if (row_index < row_count-1){
+						var row = row_index + 1;
+						var col = col_index;
+						var piece = shuffled_pieces[row][col];
+						var cell = cells[row][col];
+						moveable_pieces.push(piece);					
+						console.log(piece, cell);
+					}
+					
+					//	possible row moves (L/R)
+					if (col_index > 0){
+						var row = row_index;
+						var col = col_index - 1;
+						var piece = shuffled_pieces[row][col];
+						var cell = cells[row][col];
+						moveable_pieces.push(piece);
+						console.log(piece, cell);
+					}
+					if (col_index < col_count-1){
+						var row = row_index;
+						var col = col_index + 1;
+						var piece = shuffled_pieces[row][col];
+						var cell = cells[row][col];
+						moveable_pieces.push(piece);
+						console.log(piece, cell);
+					}
+				};
+				
+				//	fires when a cell is clicked
 				function handle_cell_click(event){
 					var click_coords = get_event_coords(event, game_canvas);
 					var cell_index = get_cell_index(click_coords);
+					var cell = get_cell_by_index(cells, cell_index);
+					var piece = get_cell_by_index(shuffled_pieces, cell_index);
+					var is_moveable = is_moveable_piece(piece);
+				};
+				
+				//	check if the piece is in moveable pieces
+				function is_moveable_piece(piece){
+					for (var i=0, count=moveable_pieces.length; i<count; i++){
+						if (piece === moveable_pieces[i]){
+							return true;
+						}
+					}
+					return false;
+				};
+				
+				//	return the column index given the game coordinates
+				function get_col_index(x){
+					var col_width = shuffled_pieces[0][0].width;
+					var col_index = Math.floor(x / col_width);
+					return col_index;
+				};
+				
+				//	return the row index given the game coordinates
+				function get_row_index(y){
+					var row_height = shuffled_pieces[0][0].height;
+					var row_index = Math.floor(y / row_height);
+					return row_index;
+				};
+				
+				//	returns an item out of a 2D list by its index
+				function get_cell_by_index(two_d_list, index){
+					for (var i=0, accum=0; i<row_count; i++){
+						for (var n=0; n<col_count; n++){
+							if (accum == index){
+								var item = two_d_list[i][n];
+								return item;
+							} 
+							accum++;
+						}
+					}
 				};
 				
 				//	return the cell index that contains the given coordinates in the game space
 				function get_cell_index(coords){
-					var col_width = pieces[0].width;
-					var col_index = Math.floor(coords[0] / col_width);
-					var row_height = pieces[0].height;
-					var row_index = Math.floor(coords[1] / row_height);
-					
+					var col_index = get_col_index(coords[0]);
+					var row_index = get_row_index(coords[1]);
 					return (row_index*col_count) + (col_index*1);
 				};
 				
