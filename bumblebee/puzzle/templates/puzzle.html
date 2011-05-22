@@ -25,8 +25,8 @@
 				var game_h = game_canvas.height;
 				
 				//	game parameters
-				var row_count = 4;
-				var col_count = 4;
+				var row_count = 3;
+				var col_count = 3;
 				var pieces = [];
 				var shuffled_pieces = [];
 				var moveable_pieces = [];
@@ -87,7 +87,8 @@
 							x: i * w,
 							y: n * h,
 							w: w,
-							h: h
+							h: h,
+							piece: piece
 						});
 						
 						accum++;
@@ -109,8 +110,7 @@
 					position_pieces_in_cells(shuffled_pieces);
 					
 					//	create and draw the empty slot overtop the pieces
-					empty_cell = cells[row_count-1][col_count-1];
-					draw_empty_cell(empty_cell);
+					draw_empty_cell(cells[row_count-1][col_count-1]);
 					
 					//	find candidate pieces that surround the empty cell
 					update_possible_moves(empty_cell); 
@@ -156,6 +156,7 @@
 				};
 
 				function draw_empty_cell(cell){
+					empty_cell = cell;
 					game_ctx.save();
 					game_ctx.fillStyle = 'white';
 					game_ctx.fillRect(cell.x, cell.y, cell.w, cell.h);
@@ -173,14 +174,14 @@
 						var col = col_index;
 						var piece = shuffled_pieces[row][col];
 						var cell = cells[row][col];
-						moveable_pieces.push(piece);
+						moveable_pieces.push(cell.piece);
 					}
 					if (row_index < row_count-1){
 						var row = row_index + 1;
 						var col = col_index;
 						var piece = shuffled_pieces[row][col];
 						var cell = cells[row][col];
-						moveable_pieces.push(piece);					
+						moveable_pieces.push(cell.piece);					
 					}
 					
 					//	possible row moves (L/R)
@@ -189,14 +190,14 @@
 						var col = col_index - 1;
 						var piece = shuffled_pieces[row][col];
 						var cell = cells[row][col];
-						moveable_pieces.push(piece);
+						moveable_pieces.push(cell.piece);
 					}
 					if (col_index < col_count-1){
 						var row = row_index;
 						var col = col_index + 1;
 						var piece = shuffled_pieces[row][col];
 						var cell = cells[row][col];
-						moveable_pieces.push(piece);
+						moveable_pieces.push(cell.piece);
 					}
 				};
 				
@@ -205,18 +206,21 @@
 					var click_coords = get_event_coords(event, game_canvas);
 					var cell_index = get_cell_index(click_coords);
 					var cell = get_cell_by_index(cells, cell_index);
-					var piece = get_cell_by_index(shuffled_pieces, cell_index);
+					//var piece = get_cell_by_index(shuffled_pieces, cell_index);
+					move_piece(cell.piece, cell);
+				};
+				
+				function move_piece(piece, clicked_cell){
 					var is_moveable = is_moveable_piece(piece);
 					if (is_moveable){
 						clone_image_rect(source_image, piece, empty_cell, game_ctx);
-						//	update the empty cell and reset the possible moves
-						empty_cell = cell;
-						draw_empty_cell(cell);
-						update_possible_moves(empty_cell);
+						empty_cell.piece = clicked_cell.piece;
+						draw_empty_cell(clicked_cell);
+						update_possible_moves(clicked_cell);
 					}
 				};
 				
-				//	check if the piece is in moveable pieces
+				//	check if the piece is considered a moveable piece
 				function is_moveable_piece(piece){
 					for (var i=0, count=moveable_pieces.length; i<count; i++){
 						if (piece === moveable_pieces[i]){
