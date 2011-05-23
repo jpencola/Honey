@@ -49,7 +49,7 @@ class Puzzle(models.Model):
     difficulty = models.ForeignKey('Difficulty')
     width = models.IntegerField(db_index=True)
     height = models.IntegerField(db_index=True)
-    image = models.ManyToManyField('ImageUpload', through='ImageDetail')
+    image = models.ManyToManyField('ImageUpload', through='ImageDetail', null=True, blank=True)
     
     def __unicode__(self):
         return self.name
