@@ -1,4 +1,15 @@
 from django.db import models
+from bumblebee import settings 
+
+class ImageUpload(models.Model):
+    file = models.ImageField(upload_to=settings.IMAGE_UPLOAD_PATH)
+
+
+class ImageDetail(models.Model):
+    file = models.ForeignKey('ImageUpload')
+    puzzle = models.ForeignKey('Puzzle')
+    aviary_url = models.URLField(db_index=True)
+    
 
 class Source(models.Model):
     name = models.CharField(max_length=32, db_index=True)
@@ -38,7 +49,7 @@ class Puzzle(models.Model):
     difficulty = models.ForeignKey('Difficulty')
     width = models.IntegerField(db_index=True)
     height = models.IntegerField(db_index=True)
-    image = models.ImageField(upload_to='images', width_field='width', height_field='height')
+    image = models.ManyToManyField('ImageUpload', through='ImageDetail')
     
     def __unicode__(self):
         return self.name

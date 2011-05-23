@@ -137,3 +137,7 @@ LOGGING = {
         },
     }
 }
+
+# Upload Specific
+FILE_UPLOAD_MAX_MEMORY_SIZE = 1048576 # 1 MB
+FILE_UPLOAD_TEMP_DIR = '/tmp'

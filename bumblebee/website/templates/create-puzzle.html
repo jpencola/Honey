@@ -7,5 +7,9 @@
 {% block title %}Your Puzzle Game!{% endblock title %}
 
 {% block content %}
-
+	<form enctype="multipart/form-data" method="post" action=".">
+		{% csrf_token %}
+		{{ form }}
+		<input type="submit" value="Upload"></input>
+	</form>
 {% endblock content %}
