@@ -5,18 +5,17 @@
 	<link rel="stylesheet" href="{{ STATIC_URL }}css/puzzle.css">
 {% endblock head_include %}
 
-{% block title %}Your Puzzle Game!{% endblock title %}
+{% block title %}Play Puzzle: {{puzzle.name}}{% endblock title %}
 
 {% block content %}
-        <h1>Your Puzzle Game!</h1>
+        <h1>{{puzzle.name}}</h1>
 		
-		<canvas id="buffer-canvas" width="400" height="400"></canvas>
-		<canvas id="game-canvas" width="400" height="400"></canvas>	
+		<canvas id="buffer-canvas" width="{{puzzle.width}}" height="{{puzzle.height}}"></canvas>
+		<canvas id="game-canvas" width="{{puzzle.width}}" height="{{puzzle.height}}"></canvas>	
 		
 		<script type="text/javascript">
 		
 			(function(){
-				var game_fps = 30;
 				var osb_canvas = document.getElementById('buffer-canvas');
 				var game_canvas = document.getElementById('game-canvas');
 				var osb_ctx = osb_canvas.getContext('2d');
@@ -25,8 +24,8 @@
 				var game_h = game_canvas.height;
 				
 				//	game parameters
-				var row_count = 3;
-				var col_count = 3;
+				var row_count = {{puzzle.max_rows}};
+				var col_count = {{puzzle.max_cols}};
 				var pieces = [];
 				var shuffled_pieces = [];
 				var moveable_pieces = [];
@@ -296,7 +295,6 @@
 					return [x,y];
 				};
 				
-				// Last, load the puzzle image
 				source_image.src = '{{ STATIC_URL }}images/demos/matthew.jpg';
 			})()
 			

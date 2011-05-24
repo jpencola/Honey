@@ -6,20 +6,20 @@
 - model: puzzle.grid
   pk: 1
   fields: 
-    rows: 2
-    columns: 2
-
-- model: puzzle.grid
-  pk: 2
-  fields: 
     rows: 3
     columns: 3
 
 - model: puzzle.grid
-  pk: 3
+  pk: 2
   fields: 
     rows: 4
     columns: 4
+
+- model: puzzle.grid
+  pk: 3
+  fields: 
+    rows: 5
+    columns: 5
 
 - model: puzzle.filter
   pk: 1
