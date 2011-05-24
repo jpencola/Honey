@@ -10,7 +10,7 @@
 		<div id="create-tab"><a href="{% url create_puzzle %}">&lsaquo; create&nbsp;&nbsp;</a></div>
         <div class="puzzle-meta">
         	<h1>You're Playing: {{puzzle.name}}</h1>
-			<span>Difficulty Level: <em>{{puzzle.difficulty_name}}</em></span>
+			<span class="difficulty">Difficulty Level: <em>{{puzzle.difficulty_name}}</em></span>
 		</div>
 		<div id="game">
 			<canvas id="buffer-canvas" width="{{puzzle.width}}" height="{{puzzle.height}}"></canvas>
@@ -19,11 +19,13 @@
 		<div class="instructions">
 			<strong>How to play:</strong>
 			<p>
-				<em>Click</em> on a piece that is directly next to the empty space in the puzzle to move it there. 
+				The <em>empty space</em> is indicated in the bottom-right corner, it looks like
+				<span class="legend-empty-space">&nbsp;</span>&nbsp; and it's where you can move pieces to.
+				<em>Clicking</em> on a piece that is directly next to the empty space is the only way to move 
+				a piece. 
 				When you get all the pieces arranged properly, <strong>the mystery image will be revealed!</strong>
-				The <em>empty space</em> is indicated in the bottom-right corner and looks like: 
-				<span class="legend-empty-space">&nbsp;</span>
 			</p>
+			<br>
 			<p class="tip"><em>Tip:</em> Re-load the page to shuffle the pieces!</p>
 		</div>
 		<script type="text/javascript">

@@ -18,11 +18,18 @@ div#create-tab a:active { color: #A0FF30; }
 
 div.puzzle-meta {
 	margin: auto 0;
-	margin-bottom: 25px;
+	margin-bottom: 32px;
 	color: #5B6662;
 }
 
 div.puzzle-meta span em { color: #000; }
+
+div.puzzle-meta span.difficulty {
+	background-color: #D9DEEF;
+	padding: 9px;
+	-moz-border-radius: 13px;
+	border-radius: 13px;
+}
 
 div#game {
 	margin: 0px auto;
