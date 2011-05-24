@@ -35,6 +35,7 @@ class Filter(models.Model):
 
 
 class Difficulty(models.Model):
+    value = models.IntegerField(unique=True, db_index=True)
     name = models.CharField(max_length=32, db_index=True)
     grid = models.ForeignKey('Grid', db_index=True)
     filters = models.ManyToManyField('Filter', db_index=True)

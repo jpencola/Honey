@@ -1,0 +1,64 @@
+- model: puzzle.source
+  pk: 1
+  fields: 
+    name: Aviary
+
+- model: puzzle.grid
+  pk: 1
+  fields: 
+    rows: 2
+    columns: 2
+
+- model: puzzle.grid
+  pk: 2
+  fields: 
+    rows: 3
+    columns: 3
+
+- model: puzzle.grid
+  pk: 3
+  fields: 
+    rows: 4
+    columns: 4
+
+- model: puzzle.filter
+  pk: 1
+  fields:
+    source: 1
+    name: Blur
+
+- model: puzzle.filter
+  pk: 2
+  fields:
+    source: 1
+    name: Hard Blur
+    
+- model: puzzle.filter
+  pk: 3
+  fields:
+    source: 1
+    name: Super Blur
+
+- model: puzzle.difficulty
+  pk: 1
+  fields:
+    filters: [1]
+    grid: 1
+    value: 0
+    name: Easy
+    
+- model: puzzle.difficulty
+  pk: 2
+  fields:
+    filters: [2]
+    grid: 2
+    value: 1
+    name: Medium
+    
+- model: puzzle.difficulty
+  pk: 3
+  fields:
+    filters: [3]
+    grid: 3
+    value: 2
+    name: Almost Impossible

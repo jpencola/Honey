@@ -32,7 +32,7 @@ admin.site.register(Grid, GridAdmin)
 
 
 class DifficultyAdmin(admin.ModelAdmin):
-    fields = ('name', 'grid', 'filters')
+    fields = ('name', 'grid', 'filters', 'value')
     
 admin.site.register(Difficulty, DifficultyAdmin)
 
