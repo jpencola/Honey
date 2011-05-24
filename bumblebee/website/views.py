@@ -4,6 +4,7 @@ import string
 import base64
 from random import randint
 from time import gmtime, strftime
+from datetime import datetime
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -19,26 +20,27 @@ def create_puzzle(request):
     """ """
     form = UploadFileForm(request.POST, request.FILES)
     if request.method == 'POST' and form.is_valid():
+        file = request.FILES['file']
         
         if request.META.has_key('X-Forwarded-For'):
             ip = request.META['X-Forwarded-For']
         else:
             ip = request.META['REMOTE_ADDR']
-                
+        
         guid = create_guid(ip)
          
-        # create a Difficulty object based on form value
-        req_difficulty = request.POST['difficulty']
-        difficulty = Difficulty.objects.get(value = req_difficulty)
-        
         # First check the upload is a valid image file
-        file = request.FILES['file']
         valid_image = matches_allowed_type(file)
         if valid_image:
             file_extension = os.path.splitext(file.name)[1]
-            
-            new_file_name = ip + file_extension
+            day_id = datetime.now().day
+            new_file_name = "%s_%s" % (day_id, ip)
+            new_file_name = "%s%s" % (base64.b64encode(new_file_name, "AB"), file_extension)
             image = create_image(file, new_file_name)
+            
+            # create a Difficulty object based on form value
+            req_difficulty = request.POST['difficulty']
+            difficulty = Difficulty.objects.get(value = req_difficulty)
             
             req_puzzle_name =  request.POST['name']
             puzzle = Puzzle.objects.create(
