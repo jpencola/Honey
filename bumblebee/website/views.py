@@ -10,9 +10,6 @@ from django.core.files import File
 from bumblebee.website.forms import UploadFileForm
 from bumblebee.puzzle.models import ImageUpload, Puzzle, Difficulty, ImageDetail
 
-def play_puzzle(request):
-    pass
-
 def create_puzzle(request):
     """ """
     form = UploadFileForm(request.POST, request.FILES)
@@ -44,7 +41,7 @@ def create_puzzle(request):
                        )
         
         # display the completed puzzle on a page
-        return HttpResponseRedirect('/puzzles/%s') % (guid)
+        return HttpResponseRedirect('/puzzles/'+guid )
     else:
         form = UploadFileForm()
         
@@ -59,7 +56,7 @@ def create_guid():
     rand = randint(100, 999)
     time = strftime("%H:%M:%S", gmtime())
     combined = "%s,%s" % (time, rand)
-    guid = base64.b64encode(combined) 
+    guid = base64.b64encode(combined, 'AB') 
     return guid
 
 

@@ -62,3 +62,12 @@
     grid: 3
     value: 2
     name: Almost Impossible
+    
+- model: puzzle.puzzle
+  pk: 1
+  fields:
+    guid: DEFAULT
+    name: A default puzzle
+    difficulty: 1
+    width: 400
+    height: 400

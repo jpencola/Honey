@@ -5,6 +5,6 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^puzzle/', include('bumblebee.puzzle.urls')),
+    url(r'^puzzles/', include('bumblebee.puzzle.urls')),
     url(r'^create_puzzle/', include('bumblebee.website.urls')),
 )
