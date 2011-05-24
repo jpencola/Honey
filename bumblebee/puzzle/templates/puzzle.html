@@ -8,11 +8,23 @@
 {% block title %}Play Puzzle: {{puzzle.name}}{% endblock title %}
 
 {% block content %}
-        <h1>{{puzzle.name}}</h1>
-		
-		<canvas id="buffer-canvas" width="{{puzzle.width}}" height="{{puzzle.height}}"></canvas>
-		<canvas id="game-canvas" width="{{puzzle.width}}" height="{{puzzle.height}}"></canvas>	
-		
+        <div class="puzzle-meta">
+        	<h1>{{puzzle.name}}</h1>
+			<span>Difficulty: {{puzzle.difficulty_name}}</span>
+		</div>
+		<div id="game">
+			<canvas id="buffer-canvas" width="{{puzzle.width}}" height="{{puzzle.height}}"></canvas>
+			<canvas id="game-canvas" width="{{puzzle.width}}" height="{{puzzle.height}}"></canvas>	
+		</div>
+		<div class="instructions">
+			<strong>How to play:</strong>
+			<p>
+			<em>Click</em> on a piece that is directly next to the empty space in the puzzle to move it there. 
+			When you get all the pieces arranged properly, <strong>the mystery image will be revealed!</strong>
+			The <em>empty space</em> is indicated in the bottom-right corner and looks like: 
+			<span class="legend-empty-space">|</span>
+			</p>
+		</div>
 		<script type="text/javascript">
 		
 			(function(){

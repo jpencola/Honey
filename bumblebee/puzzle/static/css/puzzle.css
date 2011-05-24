@@ -1,1 +1,33 @@
-canvas {outline: solid 1px #666;}
+canvas { margin: 10px; outline: solid 1px #666;}
+
+div.puzzle-meta {
+	margin: auto 0;
+}
+
+div#game {
+	margin: 0px auto;
+}
+
+div.instructions {
+	line-height: 23px;
+	margin-top: 30px;	
+}
+div.instructions p {
+	margin: 0px auto;
+	width: 400px;
+}
+div.instructions em {
+	margin: 0 5px 0 5px;
+	font-weight: bolder;
+	font-style: normal;
+	color: #107911;
+}
+div.instructions strong {
+	color: #391E79;	
+}
+span.legend-empty-space { 
+	border-right: solid 25px #fff;
+	color: transparent;
+}
+
+div#footer{ margin: 60px 0 22px 22px; color:#BCBFD0; }

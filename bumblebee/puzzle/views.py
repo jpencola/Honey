@@ -10,6 +10,7 @@ def show_puzzle(request, guid="DEFAULT"):
                          "name": puzzle.name,
                          "width": puzzle.width,
                          "height": puzzle.height,
+                         "difficulty_name": puzzle.difficulty.name,
                          "max_rows": puzzle.difficulty.grid.rows,
                          "max_cols": puzzle.difficulty.grid.columns,
                          "source_url": first_associated_image.aviary_url,
