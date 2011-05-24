@@ -12,32 +12,32 @@
 - model: puzzle.grid
   pk: 2
   fields: 
-    rows: 4
-    columns: 4
+    rows: 5
+    columns: 5
 
 - model: puzzle.grid
   pk: 3
   fields: 
-    rows: 5
-    columns: 5
+    rows: 7
+    columns: 7
 
 - model: puzzle.filter
   pk: 1
   fields:
     source: 1
-    name: Blur
+    name: Comic
 
 - model: puzzle.filter
   pk: 2
   fields:
     source: 1
-    name: Hard Blur
+    name: Bad Ass
     
 - model: puzzle.filter
   pk: 3
   fields:
     source: 1
-    name: Super Blur
+    name: Blur
 
 - model: puzzle.difficulty
   pk: 1
@@ -45,7 +45,7 @@
     filters: [1]
     grid: 1
     value: 0
-    name: Easy
+    name: Passing Time
     
 - model: puzzle.difficulty
   pk: 2
@@ -53,7 +53,7 @@
     filters: [2]
     grid: 2
     value: 1
-    name: Medium
+    name: Pretty Tricky
     
 - model: puzzle.difficulty
   pk: 3
@@ -61,13 +61,13 @@
     filters: [3]
     grid: 3
     value: 2
-    name: Almost Impossible
+    name: Nearly Impossible
     
 - model: puzzle.puzzle
   pk: 1
   fields:
     guid: DEFAULT
-    name: A default puzzle
+    name: An example puzzle
     difficulty: 1
     width: 400
-    height: 400
+    height: 300

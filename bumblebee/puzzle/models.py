@@ -21,7 +21,8 @@ class ImageDetail(models.Model):
     file = models.ForeignKey('ImageUpload')
     puzzle = models.ForeignKey('Puzzle')
     aviary_url = models.URLField(db_index=True)
-    
+    aviary_processed_url = models.URLField(db_index=True)
+
 
 class Source(models.Model):
     name = models.CharField(max_length=32, db_index=True)

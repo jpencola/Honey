@@ -11,10 +11,12 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.files import File
 
+from bumblebee.puzzle.post_processing import process
 from bumblebee.website.forms import UploadFileForm
 from bumblebee.puzzle.models import ImageUpload, Puzzle, Difficulty, ImageDetail
 
 ALLOWED_IMAGE_TYPES = ('png','jpg','jpeg','gif','tif',)
+PUZZLE_SIZE = (400, 300)
 
 def create_puzzle(request):
     """ """
@@ -33,6 +35,8 @@ def create_puzzle(request):
         valid_image = matches_allowed_type(file)
         if valid_image:
             file_extension = os.path.splitext(file.name)[1]
+            if file_extension == 'jpeg':    #normalize jpg|jpeg
+                file_extension = 'jpg'
             day_id = datetime.now().day
             new_file_name = "%s_%s" % (day_id, ip)
             new_file_name = "%s%s" % (base64.b64encode(new_file_name, "AB"), file_extension)
@@ -40,20 +44,25 @@ def create_puzzle(request):
             
             # create a Difficulty object based on form value
             req_difficulty = request.POST['difficulty']
-            difficulty = Difficulty.objects.get(value = req_difficulty)
+            difficulty = Difficulty.objects.select_related().get(value = req_difficulty)
+            filter = difficulty.filters.all()[0]
+            
+            # Send the new image file to Aviary for processing
+            processed_image_url, image_url = process(image, file_extension, filter)
             
             req_puzzle_name =  request.POST['name']
             puzzle = Puzzle.objects.create(
                             guid = guid,
                             name = req_puzzle_name,
-                            height = 400,
-                            width = 400,
+                            width = PUZZLE_SIZE[0],
+                            height = PUZZLE_SIZE[1],
                             difficulty = difficulty
                             )
             
             ImageDetail.objects.create(
                            file = image, 
-                           aviary_url = "http://www.jpencola.com",
+                           aviary_url = image_url,
+                           aviary_processed_url = processed_image_url,
                            puzzle = puzzle
                            )
             
@@ -61,7 +70,7 @@ def create_puzzle(request):
             return HttpResponseRedirect('/puzzles/'+guid )
         else:
             # show the error to the user
-            return HttpResponseRedirect('/invalid_image/')
+            return HttpResponseRedirect('/errr/')
     else:
         form = UploadFileForm()
         
@@ -96,3 +105,4 @@ def matches_allowed_type(file):
         return True
     else:
         return False
+    

@@ -12,7 +12,8 @@ def show_puzzle(request, guid="DEFAULT"):
                          "height": puzzle.height,
                          "max_rows": puzzle.difficulty.grid.rows,
                          "max_cols": puzzle.difficulty.grid.columns,
-                         "image_url": first_associated_image.aviary_url,
+                         "source_url": first_associated_image.aviary_url,
+                         "processed_url": first_associated_image.aviary_processed_url,
                          }
                      }
     return render_to_response("puzzle.html",
