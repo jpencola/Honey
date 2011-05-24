@@ -20,7 +20,7 @@ h1 {
 
 h2 {
 	font-size: 33px;
-	color: #7FC771;
+	color: #40A728;
 	margin: 0;
 	line-height: 65px;
 	text-shadow: rgba(3, 3, 3, 0.796875) 0px 1px 0px;
@@ -31,3 +31,11 @@ h2 {
 	background-color: #eee;
 	padding: 6px;
 }
+
+.fine-print {
+	font-size: 12px;
+	font-weight: normal;
+	color: #854124;
+}
+
+div#footer{ margin: 60px 0 22px 22px; color:#BCBFD0; }

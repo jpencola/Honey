@@ -7,11 +7,11 @@
 {% block title %}Let's Make a Puzzle To Share!{% endblock title %}
 
 {% block content %}
-	<h1>Let's make a Puzzle!</h1>
+	<h1>Let's make a Puzzzzle!</h1>
 	<div class="intro">
-		<em>Why a puzzle?</em> Simple! We humans like being intrigued, we enjoy the satisfaction of solving 
-		problems, we like to play and interact with others&hellip; 
-		With (name here), you can do all of that! You can create and play a puzzle using whatever image you'd like,
+		<em>Why a puzzle?</em> Simple! We humans like being <em>intrigued</em>, we enjoy the <em>satisfaction</em> of solving 
+		problems, we like to <em>play</em> and <em>interact</em> with others&hellip; 
+		With this app, you can do all of that! You can create and play a puzzle using whatever image you'd like,
 		and then you can send your friends a link to your custom puzzle so they can play too!
 	</div>
 	<h2>Get Started&hellip;</h2>
@@ -20,12 +20,13 @@
 		{{ form.non_field_errors }}
 		<div class="fieldWrapper">
 			{{ form.file.errors }}
-			<label for="id_file">Choose your image:</label>
+			<label for="id_file">Choose your puzzle's image:</label><br>
+			<span class="fine-print">&lowast;Use an image that is 400x300 pixels (4:3) for best results</span>
 			{{ form.file }}
 		</div>
 		<div class="fieldWrapper">
 			{{ form.name.errors }}
-			<label for="id_name">Name your puzzle:</label>
+			<label for="id_name">Give it a fun name:</label>
 			{{ form.name }}
 		</div>
 		<div class="fieldWrapper">
@@ -33,6 +34,6 @@
 			<label for="id_difficulty">Set how difficult it should be:</label>
 			{{ form.difficulty }}
 		</div>
-		<input type="submit" value="Create It!"></input>
+		<input type="submit" value="Make It!"></input>
 	</form>
 {% endblock content %}

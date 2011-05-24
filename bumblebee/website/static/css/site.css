@@ -13,6 +13,10 @@ div#content div.intro {
 	line-height: 23px;
 }
 
+div.intro em {
+	font-weight: bold;
+}
+
 form {
 	margin: 25px 0 65px 0;
 }
