@@ -16,7 +16,7 @@ from bumblebee.website.forms import UploadFileForm
 from bumblebee.puzzle.models import ImageUpload, Puzzle, Difficulty, ImageDetail
 
 ALLOWED_IMAGE_TYPES = ('png','jpg','jpeg',)
-PUZZLE_SIZE = (400, 300)
+PUZZLE_SIZE = (400, 300,)
 
 def create_puzzle(request):
     """ """
