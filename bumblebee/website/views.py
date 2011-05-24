@@ -16,7 +16,7 @@ from bumblebee.website.forms import UploadFileForm
 from bumblebee.puzzle.models import ImageUpload, Puzzle, Difficulty, ImageDetail
 
 ALLOWED_IMAGE_TYPES = ('png','jpg','jpeg',)
-PUZZLE_SIZE = (400, 300)
+PUZZLE_SIZE = (400, 300,)
 
 def create_puzzle(request):
     """ """
@@ -42,15 +42,15 @@ def create_puzzle(request):
             new_file_name = "%s%s" % (base64.b64encode(new_file_name, "AB"), file_extension)
             image = create_image(file, new_file_name)
             
-            # create a Difficulty object based on form value
-            req_difficulty = request.POST['difficulty']
-            difficulty = Difficulty.objects.select_related().get(value = req_difficulty)
+            # Retrieve a Difficulty object based on the form's value
+            difficulty = request.POST['difficulty']
+            difficulty = Difficulty.objects.select_related().get(value = difficulty)
             filter = difficulty.filters.all()[0]
             
             # Send the new image file to Aviary for processing
             processed_image_url, image_url = process(image, file_extension, filter)
             
-            req_puzzle_name =  request.POST['name']
+            req_puzzle_name = request.POST['name']
             puzzle = Puzzle.objects.create(
                             guid = guid,
                             name = req_puzzle_name,
@@ -67,7 +67,7 @@ def create_puzzle(request):
                            )
             
             # display the new puzzle on a page
-            return HttpResponseRedirect('/puzzles/'+guid )
+            return HttpResponseRedirect('/puzzles/%s' % (guid,))
         else:
             # show the error to the user
             return HttpResponseRedirect('/create_puzzle/errrr')
@@ -81,6 +81,10 @@ def create_puzzle(request):
     
 
 def wrong_file_type(request):
+    """ 
+        When the user tries to upload a filetype that's 
+        not supported, show them an error page
+    """
     return render_to_response("error.html",
                               {},
                               mimetype="text/html",
