@@ -9,8 +9,8 @@
 
 {% block content %}
         <div class="puzzle-meta">
-        	<h1>{{puzzle.name}}</h1>
-			<span>Difficulty: {{puzzle.difficulty_name}}</span>
+        	<h1>Play Puzzle: {{puzzle.name}}</h1>
+			<span>Difficulty Level: <em>{{puzzle.difficulty_name}}</em></span>
 		</div>
 		<div id="game">
 			<canvas id="buffer-canvas" width="{{puzzle.width}}" height="{{puzzle.height}}"></canvas>

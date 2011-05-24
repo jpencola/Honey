@@ -1,8 +1,21 @@
-canvas { margin: 10px; outline: solid 1px #666;}
+canvas { margin: 10px; outline: solid 1px #666; }
+canvas:hover { cursor:pointer; }
 
 div.puzzle-meta {
 	margin: auto 0;
+	margin-bottom: 25px;
+	color: #5B6662;
 }
+
+div.puzzle-meta h1 {
+	font-size: 37px;
+	color: #FFF6EB;
+	margin: 0;
+	line-height: 65px;
+	text-shadow: rgba(3, 3, 3, 0.796875) 0px 1px 0px;
+}
+
+div.puzzle-meta span em { color: #000; }
 
 div#game {
 	margin: 0px auto;
@@ -10,7 +23,7 @@ div#game {
 
 div.instructions {
 	line-height: 23px;
-	margin-top: 30px;	
+	margin-top: 25px;	
 }
 div.instructions p {
 	margin: 0px auto;

@@ -1,1 +1,11 @@
-body{margin:10px;}
+html { background-color: #e1e1e1; }
+body{
+	margin: 0;
+	padding: 0;
+	text-align:center;
+	background-color: #e1e1e1;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#C8C8C8', endColorstr='#e1e1e1');
+	background: -webkit-gradient(linear, left top, left bottom, from(#C8C8C8), to(#e1e1e1));
+	background: -moz-linear-gradient(top,  #C8C8C8,  #e1e1e1);
+	background-repeat: no-repeat;
+}
