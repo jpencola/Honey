@@ -4,12 +4,35 @@
 	<link rel="stylesheet" href="{{ STATIC_URL }}css/site.css">
 {% endblock head_include %}
 
-{% block title %}Your Puzzle Game!{% endblock title %}
+{% block title %}Let's Make a Puzzle To Share!{% endblock title %}
 
 {% block content %}
+	<h1>Let's make a Puzzle!</h1>
+	<div class="intro">
+		<em>Why a puzzle?</em> Simple! We humans like being intrigued, we enjoy the satisfaction of solving 
+		problems, we like to play and interact with others&hellip; 
+		With (name here), you can do all of that! You can create and play a puzzle using whatever image you'd like,
+		and then you can send your friends a link to your custom puzzle so they can play too!
+	</div>
+	<h2>Get Started&hellip;</h2>
 	<form enctype="multipart/form-data" method="post" action=".">
 		{% csrf_token %}
-		{{ form }}
-		<input type="submit" value="Upload"></input>
+		{{ form.non_field_errors }}
+		<div class="fieldWrapper">
+			{{ form.file.errors }}
+			<label for="id_file">Choose your image:</label>
+			{{ form.file }}
+		</div>
+		<div class="fieldWrapper">
+			{{ form.name.errors }}
+			<label for="id_name">Name your puzzle:</label>
+			{{ form.name }}
+		</div>
+		<div class="fieldWrapper">
+			{{ form.difficulty.errors }}
+			<label for="id_difficulty">Set how difficult it should be:</label>
+			{{ form.difficulty }}
+		</div>
+		<input type="submit" value="Create It!"></input>
 	</form>
 {% endblock content %}

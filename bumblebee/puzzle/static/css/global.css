@@ -9,3 +9,25 @@ body{
 	background: -moz-linear-gradient(top,  #C8C8C8,  #e1e1e1);
 	background-repeat: no-repeat;
 }
+
+h1 {
+	font-size: 37px;
+	color: #FFFFFB;
+	margin: 0;
+	line-height: 65px;
+	text-shadow: rgba(3, 3, 3, 0.796875) 0px 1px 0px;
+}
+
+h2 {
+	font-size: 33px;
+	color: #7FC771;
+	margin: 0;
+	line-height: 65px;
+	text-shadow: rgba(3, 3, 3, 0.796875) 0px 1px 0px;
+}
+
+.tip {
+	font-size: 14px;
+	background-color: #eee;
+	padding: 6px;
+}

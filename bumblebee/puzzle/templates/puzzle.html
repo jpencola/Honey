@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block head_include %}
-	<script src="{{ STATIC_URL }}js/Puzzle.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="{{ STATIC_URL }}css/puzzle.css">
 {% endblock head_include %}
 
-{% block title %}Play Puzzle: {{puzzle.name}}{% endblock title %}
+{% block title %}Playing Puzzle: {{puzzle.name}}{% endblock title %}
 
 {% block content %}
+		<div id="create-tab"><a href="{% url create_puzzle %}">&lsaquo; create&nbsp;&nbsp;</a></div>
         <div class="puzzle-meta">
-        	<h1>Play Puzzle: {{puzzle.name}}</h1>
+        	<h1>You're Playing: {{puzzle.name}}</h1>
 			<span>Difficulty Level: <em>{{puzzle.difficulty_name}}</em></span>
 		</div>
 		<div id="game">
@@ -19,11 +19,12 @@
 		<div class="instructions">
 			<strong>How to play:</strong>
 			<p>
-			<em>Click</em> on a piece that is directly next to the empty space in the puzzle to move it there. 
-			When you get all the pieces arranged properly, <strong>the mystery image will be revealed!</strong>
-			The <em>empty space</em> is indicated in the bottom-right corner and looks like: 
-			<span class="legend-empty-space">|</span>
+				<em>Click</em> on a piece that is directly next to the empty space in the puzzle to move it there. 
+				When you get all the pieces arranged properly, <strong>the mystery image will be revealed!</strong>
+				The <em>empty space</em> is indicated in the bottom-right corner and looks like: 
+				<span class="legend-empty-space">&nbsp;</span>
 			</p>
+			<p class="tip"><em>Tip:</em> Re-load the page to shuffle the pieces!</p>
 		</div>
 		<script type="text/javascript">
 		
