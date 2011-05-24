@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block head_include %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/site.css">
+{% endblock head_include %}
+
+{% block title %}Oops, unsupported file type!{% endblock title %}
+
+{% block content %}
+	<div id="floaty-tab"><a href="{% url create_puzzle %}">&lsaquo; create&nbsp;&nbsp;</a></div>
+	<h1>Sorry, that file type is not yet supported. And may never be! You are permitted to upload files that are ".jpeg",".jpg" or ".png" format.
+{% endblock content %}

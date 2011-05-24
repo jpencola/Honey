@@ -1,21 +1,6 @@
 canvas { margin: 10px; outline: solid 1px #666; }
 canvas:hover { cursor:pointer; }
 
-div#create-tab{
-	position: absolute;
-	top: 0;
-	left: 0;
-	text-align: left;
-	text-indent: 9px;
-	line-height: 27px;
-	background-color: #829FC7;
-	text-shadow: rgba(0, 0, 0, 0.696875) 0px 1px 0px;
-}
-
-div#create-tab a { color: #ABD8FF; text-decoration: none; }
-div#create-tab a:hover { color: #fff; }
-div#create-tab a:active { color: #A0FF30; }
-
 div.puzzle-meta {
 	margin: auto 0;
 	margin-bottom: 32px;

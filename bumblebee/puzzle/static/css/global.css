@@ -38,4 +38,19 @@ h2 {
 	color: #854124;
 }
 
+div#floaty-tab{
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-align: left;
+	text-indent: 9px;
+	line-height: 27px;
+	background-color: #829FC7;
+	text-shadow: rgba(0, 0, 0, 0.696875) 0px 1px 0px;
+}
+
+div#floaty-tab a { color: #ABD8FF; text-decoration: none; }
+div#floaty-tab a:hover { color: #fff; }
+div#floaty-tab a:active { color: #A0FF30; }
+
 div#footer{ margin: 60px 0 22px 22px; color:#BCBFD0; }

@@ -15,7 +15,7 @@ from bumblebee.puzzle.post_processing import process
 from bumblebee.website.forms import UploadFileForm
 from bumblebee.puzzle.models import ImageUpload, Puzzle, Difficulty, ImageDetail
 
-ALLOWED_IMAGE_TYPES = ('png','jpg','jpeg','gif','tif',)
+ALLOWED_IMAGE_TYPES = ('png','jpg','jpeg',)
 PUZZLE_SIZE = (400, 300)
 
 def create_puzzle(request):
@@ -70,7 +70,7 @@ def create_puzzle(request):
             return HttpResponseRedirect('/puzzles/'+guid )
         else:
             # show the error to the user
-            return HttpResponseRedirect('/errr/')
+            return HttpResponseRedirect('/create_puzzle/errrr')
     else:
         form = UploadFileForm()
         
@@ -79,7 +79,14 @@ def create_puzzle(request):
                               mimetype="text/html",
                               context_instance=RequestContext(request))
     
-    
+
+def wrong_file_type(request):
+    return render_to_response("error.html",
+                              {},
+                              mimetype="text/html",
+                              context_instance=RequestContext(request))
+
+
 def create_guid(ip):
     """ create a GUID using Base64 hash algo """
     rand_str = str(randint(100, 999))
