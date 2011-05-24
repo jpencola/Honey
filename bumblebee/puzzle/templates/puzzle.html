@@ -7,7 +7,7 @@
 {% block title %}Playing Puzzle: {{puzzle.name}}{% endblock title %}
 
 {% block content %}
-		<div id="floaty-tab"><a href="{% url create_puzzle %}">&lsaquo; create&nbsp;&nbsp;</a></div>
+		<div id="floaty-tab"><a href="{% url create_puzzle %}" title="Back to create" alt="Back to create">&lsaquo; create&nbsp;&nbsp;</a></div>
         <div class="puzzle-meta">
         	<h1>You're Playing: {{puzzle.name}}</h1>
 			<span class="difficulty">Difficulty Level: <em>{{puzzle.difficulty_name}}</em></span>
