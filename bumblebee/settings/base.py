@@ -143,4 +143,4 @@ FILE_UPLOAD_HANDLERS = ("bumblebee.website.handlers.limitUpload.QuotaUploadHandl
                         "django.core.files.uploadhandler.MemoryFileUploadHandler",
                         "django.core.files.uploadhandler.TemporaryFileUploadHandler",)
 FILE_UPLOAD_MAX_MEMORY_SIZE = 1048576 # 1 MB
-FILE_UPLOAD_TEMP_DIR = '/tmp'
+#FILE_UPLOAD_TEMP_DIR = '/tmp'

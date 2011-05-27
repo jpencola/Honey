@@ -8,6 +8,17 @@
                 <meta name="author" content="John Pencola">
                 <link rel="stylesheet" href="{{ STATIC_URL }}css/global.css">
                 {% block head_include %}{% endblock head_include %}
+				<script type="text/javascript">
+					var _gaq = _gaq || [];
+					_gaq.push(['_setAccount', 'UA-3322230-6']);
+					_gaq.push(['_trackPageview']);
+					
+					(function() {
+						var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+						ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+						var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+					})();
+				</script>
         </head>
 
         <body>
@@ -15,7 +26,8 @@
                 <div id="footer">Made for the 
 					<a href="http://blog.aviary.com/aviary-api-developer-contest/" title="Aviary API Contest" alt="Aviary API Contest">Aviary API Contest</a>
 					<br>
-					&copy; <a href="http://www.johnpencola.com/" title="John Pencola's Website" alt="John Pencola's Website">John Pencola</a> &minus; 2011</div>
+					&copy; <a href="http://www.johnpencola.com/" title="John Pencola's Website" alt="John Pencola's Website">John Pencola</a> &minus; 2011 &minus; 
+					<br><a href="https://github.com/jpencola/Honey" title="Honey repository on Github" alt="Honey repository on Github">Source code for this project</a> is available on Github</div>
                 {% block endbody_include %}{% endblock endbody_include %}
         </body>
 </html>

@@ -21,6 +21,7 @@
 		<div class="fieldWrapper">
 			{{ form.file.errors }}
 			<label for="id_file">Choose your puzzle's image:</label><br>
+			<span class="fine-print">&lowast; Please, no images over 500k in file size</span><br>
 			<span class="fine-print">&lowast; Use an image that is exactly 400x300 pixels, or (4:3) for optimal results</span>
 			{{ form.file }}
 		</div>
@@ -41,7 +42,7 @@
 				<option value="1">Pretty Tricky</option>
 				<option value="2">Nearly Impossible!</option>
 			</select>
-		</div>
+		</div>	
 		<button type="submit" value="">Make It!</button>
 	</form>
 	<p class="fine-print">&lowast; This site is best experienced in modern Web Browsers, preferrably Google Chrome or Safari. If your browser isn't up-to-date, chances are things wont work properly. &lowast;</p>

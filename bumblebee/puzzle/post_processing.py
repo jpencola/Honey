@@ -46,7 +46,7 @@ FILTER_MAP = {"comic":
 def process(file, extension, filter):
     aviaryfx = AviaryFX(settings.AVIARY_API_KEY, settings.AVIARY_API_SECRET)
     #filters = aviaryfx.getFilters()
-    file_path = file.file.path
+    file_path = file.file.path.encode('utf-8') #Make sure to encode this value!
     response = aviaryfx.upload(file_path)
     uploaded_file_url = response['url']
     
