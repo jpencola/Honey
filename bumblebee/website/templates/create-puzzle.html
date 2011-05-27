@@ -33,8 +33,20 @@
 			{{ form.difficulty.errors }}
 			<label for="id_difficulty">Set how difficult it should be:</label>
 			{{ form.difficulty }}
+			<select id="difficulty-selector" onchange="
+				var input = document.getElementById('id_difficulty');
+				input.value = this.options[this.selectedIndex].value;
+				">
+				<option value="0">Passing Time</option>
+				<option value="1">Pretty Tricky</option>
+				<option value="2">Nearly Impossible!</option>
+			</select>
 		</div>
 		<button type="submit" value="">Make It!</button>
 	</form>
 	<p class="fine-print">&lowast; This site is best experienced in modern Web Browsers, preferrably Google Chrome or Safari. If your browser isn't up-to-date, chances are things wont work properly. &lowast;</p>
+	<script type="text/javascript">
+		var input = document.getElementById('id_difficulty');
+		input.value = 0;
+	</script>
 {% endblock content %}
