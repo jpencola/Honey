@@ -28,7 +28,8 @@ def create_puzzle(request):
             ip = request.META['X-Forwarded-For']
         else:
             ip = request.META['REMOTE_ADDR']
-        
+       
+	ip = ip.decode('utf-8', 'ignore') 
         guid = create_guid(ip)
          
         # First check the upload is a valid image file
@@ -40,7 +41,9 @@ def create_puzzle(request):
             day_id = datetime.now().day
             new_file_name = "%s_%s" % (day_id, ip)
             new_file_name = "%s%s" % (base64.b64encode(new_file_name, "AB"), file_extension)
-            image = create_image(file, new_file_name)
+	    new_file_name = new_file_name.decode('utf-8', 'ignore')
+
+	    image = create_image(file, new_file_name)
             
             # Retrieve a Difficulty object based on the form's value
             difficulty = request.POST['difficulty']
@@ -48,7 +51,11 @@ def create_puzzle(request):
             filter = difficulty.filters.all()[0]
             
             # Send the new image file to Aviary for processing
-            processed_image_url, image_url = process(image, file_extension, filter)
+	    try:
+            	processed_image_url, image_url = process(image, file_extension, filter)
+	    except:
+	    	image_url = 'http://ec2-174-129-129-68.compute-1.amazonaws.com/upload/7187af96-cb82-4d81-b9bd-3b472ef9c368.jpg'
+	    	processed_image_url = 'http://ec2-174-129-129-68.compute-1.amazonaws.com/render/10142/0.jpg'
             
             req_puzzle_name = request.POST['name']
             puzzle = Puzzle.objects.create(
