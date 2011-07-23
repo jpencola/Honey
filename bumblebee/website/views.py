@@ -15,6 +15,8 @@ from bumblebee.puzzle.post_processing import process
 from bumblebee.website.forms import UploadFileForm
 from bumblebee.puzzle.models import ImageUpload, Puzzle, Difficulty, ImageDetail
 
+DEMO_IMAGE_URL = 'http://www.johnpencola.com/images/espresso.png'
+DEMO_IMAGE_POSTPROCESS_URL = 'http://www.johnpencola.com/images/espresso_postprocessed.jpg'
 ALLOWED_IMAGE_TYPES = ('png','jpg','jpeg',)
 PUZZLE_SIZE = (400, 300,)
 
@@ -54,8 +56,8 @@ def create_puzzle(request):
             try:
                 processed_image_url, image_url = process(image, file_extension, filter)
             except:
-                image_url = 'http://ec2-174-129-129-68.compute-1.amazonaws.com/upload/7187af96-cb82-4d81-b9bd-3b472ef9c368.jpg'
-                processed_image_url = 'http://ec2-174-129-129-68.compute-1.amazonaws.com/render/10142/0.jpg'
+                image_url = DEMO_IMAGE_URL
+                processed_image_url = DEMO_IMAGE_POSTPROCESS_URL
             
             req_puzzle_name = request.POST['name']
             puzzle = Puzzle.objects.create(
