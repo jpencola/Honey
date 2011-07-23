@@ -53,6 +53,10 @@ input[type=file] {
 	width: 200px;
 }
 
+input[name=difficulty] {
+	display: none;
+}
+
 button[type=submit] {
 	margin: 0 auto;
 	width: 250px;
