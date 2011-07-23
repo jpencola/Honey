@@ -36,7 +36,7 @@ def create_puzzle(request):
         valid_image = matches_allowed_type(file)
         if valid_image:
             file_extension = os.path.splitext(file.name)[1]
-            if file_extension == 'jpeg':    #normalize jpg|jpeg
+            if file_extension == 'jpeg':    #normalize jpeg -> jpg
                 file_extension = 'jpg'
             day_id = datetime.now().day
             new_file_name = "%s_%s" % (day_id, ip)
@@ -51,11 +51,11 @@ def create_puzzle(request):
             filter = difficulty.filters.all()[0]
             
             # Send the new image file to Aviary for processing
-        try:
-            processed_image_url, image_url = process(image, file_extension, filter)
-        except:
-            image_url = 'http://ec2-174-129-129-68.compute-1.amazonaws.com/upload/7187af96-cb82-4d81-b9bd-3b472ef9c368.jpg'
-            processed_image_url = 'http://ec2-174-129-129-68.compute-1.amazonaws.com/render/10142/0.jpg'
+            try:
+                processed_image_url, image_url = process(image, file_extension, filter)
+            except:
+                image_url = 'http://ec2-174-129-129-68.compute-1.amazonaws.com/upload/7187af96-cb82-4d81-b9bd-3b472ef9c368.jpg'
+                processed_image_url = 'http://ec2-174-129-129-68.compute-1.amazonaws.com/render/10142/0.jpg'
             
             req_puzzle_name = request.POST['name']
             puzzle = Puzzle.objects.create(
@@ -73,10 +73,8 @@ def create_puzzle(request):
                            puzzle = puzzle
                            )
             
-            # display the new puzzle on a page
             return HttpResponseRedirect('/puzzles/%s' % (guid,))
         else:
-            # show the error to the user
             return HttpResponseRedirect('/create_puzzle/errrr')
     else:
         form = UploadFileForm()
