@@ -11,6 +11,7 @@ Thumbs.db
 ####################
 .project
 .pydevproject
+.settings
 /uploads
 
 # Logs and databases #

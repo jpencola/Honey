@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block head_include %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/puzzle.css">
+{% endblock head_include %}
+
+{% block title %}
+    Hmm, that Puzzle doesn't exist&hellip;
+{% endblock title %}
+
+{% block content %}
+    <h1>We couldn't find that Puzzle, maybe you typed it wrong?</h1>
+    <small>(HTTP: 404)</small>
+    <p>
+        <a href="/" title="Go back">&larr; Go Back</a>
+    </p>
+{% endblock content %}
